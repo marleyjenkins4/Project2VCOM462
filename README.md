@@ -1,1 +1,1 @@
-# Project2VCOM462
+A hiking app 
