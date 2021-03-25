@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!--<link rel="stylesheet" href="css/styles.css" type="text/css" media="screen">-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script>
+            $.ajax({
+            url: "https://www.olivercsmith.com/Hyke/maketrails.php",    // path to remote script
+            dataType: "JSON",                                // data set to retrieve JSON
+            success: function (data) {                       // on success, do something...
+                // grabbing my JSON data and saving it
+                
+                // to localStorage for future use.
+                localStorage.setItem('myData', JSON.stringify(data));
+            }
+            });
+        </script>
+    </head>
+    <body>
+        <h1>here are your trails around you</h1>
+        <div id="info"></div>
+        <script>
+            
+            var myData = JSON.parse(localStorage.getItem('myData'));
+            var i;
+            var info = "";
+            for (i = 0; i < myData.length; i++) {
+                info += "<div class=\"trail\"><form action=\"Trail.html\" method=\"POST\">";
+                info += "<p>Name: " + myData[i].name + "</p><input type=\"hidden\" value=\""+i+"\" name=\"id\">";
+                /*info += "<p>Miles: " + myData[i].miles + "</p>";
+                info += "<p>Difficulty: " + myData[i].difficulty + "</p>";
+                info += "<p>Time: " + myData[i].avgtime + " hours</p>";
+                info += "<p>Address: " + myData[i].address + "</p>";
+                info += "<p>Lattitude: " + myData[i].lat + "</p>";
+                info += "<p>Longitude: " + myData[i].lng + "</p>";*/
+                info += "<input type=\"submit\" class=\"tbutton\" value=\"button\" onclick=\"localStorage.setItem(\'trail\'," + i + ")\">"
+                info += "</form>";
+                //info += "<a><img></a>"
+                info += "</div></br>";
+               
+            }
+            document.getElementById('info').innerHTML = info;
+        </script>
+    </body>
+</html>
